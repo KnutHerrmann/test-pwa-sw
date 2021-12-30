@@ -5,14 +5,13 @@ import {
   Link,
   useHistory,
 } from "react-router-dom";
-import logo from './logo.svg';
 import './App.css';
 
 const Home = React.lazy(() => import('./Home'));
 const A = React.lazy(() => import('./A'));
 const B = React.lazy(() => import('./B'));
 
-export const VERSION = '47';
+export const VERSION = '56';
 
 const App = () => {
 
@@ -29,11 +28,10 @@ const App = () => {
 
   return (
       <div className="App">
-        <img src={logo} className="App-logo" alt="logo"/>
         <div>
           <Link to="/" className="App-link">Home</Link> | {' '}
           <Link to="/a" className="App-link">Editor</Link> | {' '}
-          <Link to="/b" className="App-link">Sonstiges</Link>
+          <Link to="/b" className="App-link">Something</Link>
         </div>
         <div>
           <hr/>
