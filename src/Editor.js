@@ -7,7 +7,7 @@ const Editor = () => {
     fetch('https://jsonplaceholder.typicode.com/todos')
         .then(response => response.text())
         .then(text => setContent(text))
-        .catch(error => console.log(error));
+        .catch(error => setContent('Error: ' + error));
   }, []);
   return <div><JsonEditor content={content}/></div>
 }

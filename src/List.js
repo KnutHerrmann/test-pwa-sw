@@ -7,7 +7,7 @@ const List = () => {
     fetch('https://jsonplaceholder.typicode.com/photos')
         .then(response => response.json())
         .then(json => setContent(json))
-        .catch(error => console.log(error));
+        .catch(error => setContent([{title: 'Error: ' + error}]));
   }, []);
   if (!content) {
     return 'loading...';

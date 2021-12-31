@@ -3,7 +3,7 @@ import React from 'react';
 const ListElement = ({title, url}) =>
     <>
       <div>{title}</div>
-      <img src={url} alt={title}/>
+      {url ? <img src={url} alt={title}/> : null}
     </>
 
 export default ListElement
