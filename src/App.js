@@ -6,21 +6,20 @@ import {
   useHistory,
 } from "react-router-dom";
 import './App.css';
+import {VERSION} from "./version";
 
 const Home = React.lazy(() => import('./Home'));
-const A = React.lazy(() => import('./A'));
-const B = React.lazy(() => import('./B'));
-
-export const VERSION = '56';
+const Editor = React.lazy(() => import('./Editor'));
+const List = React.lazy(() => import('./List'));
 
 const App = () => {
 
   const history = useHistory();
 
   useEffect(() => {
-    history.listen((location, action) => {
+    navigator && history.listen((location, action) => {
       // check for sw updates on page change
-      navigator.serviceWorker
+      navigator.serviceWorker && navigator.serviceWorker
           .getRegistrations()
           .then((regs) => regs.forEach((reg) => reg.update()));
     });
@@ -30,18 +29,18 @@ const App = () => {
       <div className="App">
         <div>
           <Link to="/" className="App-link">Home</Link> | {' '}
-          <Link to="/a" className="App-link">Editor</Link> | {' '}
-          <Link to="/b" className="App-link">Something</Link>
+          <Link to="/editor" className="App-link">Editor</Link> | {' '}
+          <Link to="/list" className="App-link">List</Link>
         </div>
         <div>
           <hr/>
-          <div style={{width: '400px'}}>Version {VERSION}</div>
+          <div style={{width: '90vh'}}>Version {VERSION}</div>
           <hr/>
           <div style={{height: '300px'}}>
             <React.Suspense fallback='loading...'>
               <Switch>
-                <Route path="/a" component={A}/>
-                <Route path="/b" component={B}/>
+                <Route path="/editor" component={Editor}/>
+                <Route path="/list" component={List}/>
                 <Route path="*" component={Home}/>
               </Switch>
             </React.Suspense>
