@@ -4,7 +4,7 @@ import ListElement from "./ListElement";
 const List = () => {
   const [content, setContent] = useState();
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/photos')
+    fetch('https://jsonplaceholder.typicode.com/photos?_limit=500')
         .then(response => response.json())
         .then(json => setContent(json))
         .catch(error => setContent([{title: 'Error: ' + error}]));
@@ -14,6 +14,7 @@ const List = () => {
   }
   return content.map(entry =>
       <ListElement key={entry.id}
+                   id={entry.id}
                    title={entry.title}
                    url={entry.url}/>)
 }

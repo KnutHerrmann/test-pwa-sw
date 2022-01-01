@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ListElement = ({title, url}) =>
+const ListElement = ({id, title, url}) =>
     <>
-      <div>{title}</div>
+      <div>{id}. {title}</div>
       {url ? <img src={url} alt={title}/> : null}
     </>
 
