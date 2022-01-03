@@ -38,45 +38,31 @@ registerRoute(
     // If this isn't a navigation, skip.
     if (request.mode !== 'navigate') {
       return false;
-    } // If this is a URL that starts with /_, skip.
-
+    }
+    // If this is a URL that starts with /_, skip.
     if (url.pathname.startsWith('/_')) {
       return false;
-    } // If this looks like a URL for a resource, because it contains // a file extension, skip.
-
+    }
+    // If this looks like a URL for a resource, because it contains // a file extension, skip.
     if (url.pathname.match(fileExtensionRegexp)) {
       return false;
-    } // Return true to signal that we want to use the handler.
-
+    }
+    // Return true to signal that we want to use the handler.
     return true;
   },
   createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
 );
 
-// An example runtime caching route for requests that aren't handled by the
-// precache, in this case same-origin .png requests like those from in public/
+// cache todos and photos
 registerRoute(
     // Add in any other file extensions or routing criteria as needed.
-    ({ url }) => url.pathname.startsWith('/todos'),
+    ({ url }) => url.pathname.startsWith('/todos') || url.pathname.startsWith('/photos'),
     new StaleWhileRevalidate({
-      cacheName: 'test-pwa-sw-todos',
+      cacheName: 'test-pwa-sw-data',
       plugins: [
         // Ensure that once this runtime cache reaches a maximum size the
-        // least-recently used images are removed.
-        new ExpirationPlugin({ maxEntries: 5000 }),
-      ],
-    })
-);
-
-registerRoute(
-    // Add in any other file extensions or routing criteria as needed.
-    ({ url }) => url.pathname.startsWith('/photos'),
-    new StaleWhileRevalidate({
-      cacheName: 'test-pwa-sw-photos',
-      plugins: [
-        // Ensure that once this runtime cache reaches a maximum size the
-        // least-recently used images are removed.
-        new ExpirationPlugin({ maxEntries: 5000 }),
+        // least-recently used entries are removed.
+        new ExpirationPlugin({ maxEntries: 100 }),
       ],
     })
 );
